@@ -38,7 +38,7 @@ UITestHook :: struct {
 
 testHook: UITestHook
 
-TestHook_Init :: proc(screenshotDir: string = "ui_screenshots", totalFrames: int = 70) {
+TestHook_Init :: proc(screenshotDir: string = "screenshots", totalFrames: int = 70) {
 	testHook = UITestHook{
 		enabled = true,
 		currentFrame = 0,

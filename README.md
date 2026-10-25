@@ -4,6 +4,25 @@ A high-performance, standalone, hardware-accelerated immediate-mode & retained U
 
 Designed for game development tools, editor workspaces, simulation interfaces, and audio workstations. The library has **zero dependencies** outside of the Odin core library and Raylib vendor package, and produces **zero memory allocations** during standard rendering frames.
 
+## Getting started
+
+Put the library in your project (for example as a git submodule) and import
+it by its folder:
+
+```sh
+git submodule add https://github.com/bcrowe306/raylib_ui.git raylib_ui
+```
+
+```odin
+import ui "raylib_ui"
+```
+
+Run the showcase (`odin run .`), the unit tests (`odin test . -define:ODIN_TEST_THREADS=1`)
+or the headless showcase test, which writes `screenshots/`
+(`./scripts/test_showcase.sh`). The default font is `fonts/OpenSans-Regular.ttf`
+(SIL Open Font License, `fonts/OpenSans-OFL.txt`); pass another path to
+`ui.InitFonts`.
+
 ---
 
 ## Table of Contents
@@ -60,10 +79,10 @@ Demonstrates building standard dialog forms with:
 
 ```bash
 # Run interactively
-odin run ui/examples/settings_dialog
+odin run examples/settings_dialog
 
 # Run in headless test mode (ideal for CI)
-odin run ui/examples/settings_dialog -- --test
+odin run examples/settings_dialog -- --test
 ```
 
 ### 2. Studio Operations Dashboard (`ui/examples/dashboard`)
@@ -75,10 +94,10 @@ Demonstrates productivity tool and editor layouts with:
 
 ```bash
 # Run interactively
-odin run ui/examples/dashboard
+odin run examples/dashboard
 
 # Run in headless test mode
-odin run ui/examples/dashboard -- --test
+odin run examples/dashboard -- --test
 ```
 
 ---
@@ -492,14 +511,14 @@ The library includes a deterministic input injection framework (`test_hook.odin`
 
 ```bash
 # Run the automated UI test suite and capture screenshot artifacts
-./scripts/test_ui_showcase.sh
+./scripts/test_showcase.sh
 ```
 
 ### Injection API
 
 ```odin
-// Initialize test harness (saves screenshots to ./ui_screenshots/)
-ui.TestHook_Init("ui_screenshots", 130)
+// Initialize test harness (saves screenshots to ./screenshots/)
+ui.TestHook_Init("screenshots", 130)
 
 // Simulate mouse click & release
 ui.TestHook_MouseClick(120, 200)

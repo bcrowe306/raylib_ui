@@ -382,7 +382,7 @@ main :: proc() {
 	}
 
 	if hideWindow {
-		TestHook_Init("ui_screenshots", 130)
+		TestHook_Init("screenshots", 130)
 	}
 
 	windowWidth: i32 = 1280
@@ -400,11 +400,7 @@ main :: proc() {
 	rl.SetTargetFPS(60)
 
 	// Initialize UI fonts
-	fontP: cstring = "engine/Open_Sans/static/OpenSans-Regular.ttf"
-	if !os.exists("engine/Open_Sans/static/OpenSans-Regular.ttf") && os.exists("../engine/Open_Sans/static/OpenSans-Regular.ttf") {
-		fontP = "../engine/Open_Sans/static/OpenSans-Regular.ttf"
-	}
-	InitFonts(fontP)
+	InitFonts("fonts/OpenSans-Regular.ttf")
 	defer UnloadFonts()
 
 	soundItems := []string{

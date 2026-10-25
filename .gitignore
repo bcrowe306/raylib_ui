@@ -1,0 +1,11 @@
+# Build output
+ui_showcase
+*.bin
+*.exe
+*.dSYM/
+*.pdb
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/

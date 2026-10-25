@@ -13,7 +13,7 @@ DEFAULT_FONT_SIZE_SM: f32 : 14.0
 DEFAULT_FONT_SIZE_LG: f32 : 22.0
 
 guiFont: rl.Font
-fontPath: cstring = "engine/Open_Sans/static/OpenSans-Regular.ttf"
+fontPath: cstring = "fonts/OpenSans-Regular.ttf"
 fontsBySize: [MAX_CACHED_FONT_SIZE + 1]rl.Font
 
 EXTENDED_UI_CODEPOINTS := []rune{
@@ -55,14 +55,15 @@ EndViewportMode :: proc() {
 	}
 }
 
-InitFonts :: proc(path: cstring = "engine/Open_Sans/static/OpenSans-Regular.ttf") -> rl.Font {
+InitFonts :: proc(path: cstring = "fonts/OpenSans-Regular.ttf") -> rl.Font {
 	resolvedPath := path
 	pStr := string(path)
 	if !os.exists(pStr) {
-		if os.exists("../engine/Open_Sans/static/OpenSans-Regular.ttf") {
-			resolvedPath = "../engine/Open_Sans/static/OpenSans-Regular.ttf"
-		} else if os.exists("../../engine/Open_Sans/static/OpenSans-Regular.ttf") {
-			resolvedPath = "../../engine/Open_Sans/static/OpenSans-Regular.ttf"
+		// run from an example folder: the library's fonts/ a level or two up
+		if os.exists("../fonts/OpenSans-Regular.ttf") {
+			resolvedPath = "../fonts/OpenSans-Regular.ttf"
+		} else if os.exists("../../fonts/OpenSans-Regular.ttf") {
+			resolvedPath = "../../fonts/OpenSans-Regular.ttf"
 		}
 	}
 	fontPath = resolvedPath
