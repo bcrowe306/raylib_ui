@@ -116,9 +116,15 @@ GetFont :: proc(size: f32) -> rl.Font {
 	return guiFont
 }
 
+// TextDrawOverride: an app's own text drawing, asked first outside the
+// viewport mode (which draws 1:1 itself) - e.g. sharp distance-field text
+// when the UI is drawn scaled. true: it drew the text.
+TextDrawOverride: proc(text: string, x, y, size: f32, color: rl.Color) -> bool
+
 DrawText :: proc(text: cstring, x, y: f32, size: f32 = DEFAULT_FONT_SIZE, color: rl.Color = {238, 240, 246, 255}) {
 	if !rl.IsWindowReady() do return
 	sz := size if size > 0 else DEFAULT_FONT_SIZE
+	if !viewportMode && TextDrawOverride != nil && TextDrawOverride(string(text), x, y, sz, color) do return
 
 	if viewportMode && viewportCamera.zoom > 0 {
 		zoom := viewportCamera.zoom
@@ -151,6 +157,7 @@ DrawText :: proc(text: cstring, x, y: f32, size: f32 = DEFAULT_FONT_SIZE, color:
 
 DrawTextStr :: proc(text: string, x, y: f32, size: f32 = DEFAULT_FONT_SIZE, color: rl.Color = {238, 240, 246, 255}) {
 	if len(text) == 0 do return
+	if !viewportMode && TextDrawOverride != nil && TextDrawOverride(text, x, y, size if size > 0 else DEFAULT_FONT_SIZE, color) do return
 	if !viewportMode && Runa_IsLoaded() {
 		Runa_DrawText(text, x, y, size, color)
 		return
